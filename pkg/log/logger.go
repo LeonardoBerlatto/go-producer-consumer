@@ -12,6 +12,10 @@ var (
 	logger *zap.Logger
 )
 
+func init() {
+	InitLogger(zapcore.InfoLevel)
+}
+
 func InitLogger(logLevel zapcore.Level) {
 	once.Do(func() {
 		encoderConfig := zapcore.EncoderConfig{

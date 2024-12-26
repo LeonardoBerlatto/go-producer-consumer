@@ -1,7 +1,6 @@
 package main
 
 import (
-	"go.uber.org/zap/zapcore"
 	"os"
 	"os/signal"
 	"producer_consumer/internal/consumer"
@@ -10,10 +9,6 @@ import (
 	"producer_consumer/pkg/log"
 	"syscall"
 )
-
-func init() {
-	logger.InitLogger(zapcore.InfoLevel)
-}
 
 func main() {
 	log := logger.GetLogger()

@@ -1,9 +1,12 @@
 package consumer
 
 import (
-	"log"
+	"go.uber.org/zap"
 	"producer_consumer/internal/order"
+	logger "producer_consumer/pkg/log"
 )
+
+var log = logger.GetLogger()
 
 type Consumer struct {
 	Data chan order.Order
@@ -12,11 +15,10 @@ type Consumer struct {
 func (c *Consumer) Start() {
 	for currentOrder := range c.Data {
 
-		// TODO: user Logger
 		if !currentOrder.Success {
-			log.Printf("Order #%d: Failed\n", currentOrder.ID)
+			log.Warn("Order failed", zap.Int("orderNumber", currentOrder.ID))
 		} else {
-			log.Printf("Order #%d: Completed\n", currentOrder.ID)
+			log.Info("Order completed", zap.Int("orderNumber", currentOrder.ID))
 		}
 	}
 
