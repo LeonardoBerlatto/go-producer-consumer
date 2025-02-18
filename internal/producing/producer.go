@@ -1,9 +1,9 @@
-package producer
+package producing
 
 import (
 	"go.uber.org/zap"
 	"math/rand"
-	"producer_consumer/internal/order"
+	"producer_consumer/internal/item"
 	"producer_consumer/pkg/log"
 	"time"
 )
@@ -11,7 +11,7 @@ import (
 var log = logger.GetLogger()
 
 type Producer struct {
-	Data chan order.Order
+	Data chan item.Order
 	Quit chan chan error
 }
 
@@ -22,7 +22,7 @@ func (p *Producer) Start() {
 		select {
 		case <-p.Quit:
 			return
-		case p.Data <- order.Order{ID: orderNumber, Success: generateOrderOutcome()}:
+		case p.Data <- item.Order{ID: orderNumber, Success: generateOrderOutcome()}:
 			log.Info("Order sent", zap.Int("orderNumber", orderNumber))
 			time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
 		}

@@ -1,15 +1,15 @@
-package consumer
+package consuming
 
 import (
 	"go.uber.org/zap"
-	"producer_consumer/internal/order"
+	"producer_consumer/internal/item"
 	logger "producer_consumer/pkg/log"
 )
 
 var log = logger.GetLogger()
 
 type Consumer struct {
-	Data chan order.Order
+	Data chan item.Order
 }
 
 func (c *Consumer) Start() {

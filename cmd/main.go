@@ -3,27 +3,27 @@ package main
 import (
 	"os"
 	"os/signal"
-	"producer_consumer/internal/consumer"
-	"producer_consumer/internal/order"
-	"producer_consumer/internal/producer"
+	"producer_consumer/internal/consuming"
+	"producer_consumer/internal/item"
+	"producer_consumer/internal/producing"
 	"producer_consumer/pkg/log"
 	"syscall"
 )
 
 func main() {
 	log := logger.GetLogger()
-	log.Info("Starting the producer-consumer example")
+	log.Info("Starting the producing-consuming example")
 	log.Info("-------------------------------------")
 
-	buffer := make(chan order.Order)
+	buffer := make(chan item.Order)
 	quit := make(chan chan error)
 
-	producerJob := &producer.Producer{
+	producerJob := &producing.Producer{
 		Data: buffer,
 		Quit: make(chan chan error),
 	}
 
-	consumerJob := consumer.Consumer{
+	consumerJob := consuming.Consumer{
 		Data: buffer,
 	}
 
@@ -38,5 +38,5 @@ func main() {
 	close(buffer)
 
 	log.Info("-------------------------------------")
-	log.Info("Shutting down the producer-consumer example")
+	log.Info("Shutting down the producing-consuming example")
 }

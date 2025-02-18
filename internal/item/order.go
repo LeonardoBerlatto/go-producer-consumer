@@ -1,4 +1,4 @@
-package order
+package item
 
 type Order struct {
 	ID      int
